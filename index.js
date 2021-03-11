@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const graphqlHTTP = require('express-graphql');
@@ -7,7 +8,7 @@ const cors = require('cors')
 
 const app = express();
 
-
+console.log(process.env)
 // allow cross-origin requests
 app.use(cors());
 
@@ -18,7 +19,7 @@ app.use('/graphql', graphqlHTTP({
     graphiql: true
 }));
 
-mongoose.connect('mongodb+srv://arvin:uDbHj1RJJRnNbJ1v@cluster0.vtdi9.mongodb.net/kendo?retryWrites=true&w=majority')
+mongoose.connect(process.env.MONGODB_URI)
   .then(result => {
     app.listen(4000, () => {
       console.log('now listening for requests on port 4000');
